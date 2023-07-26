@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interest Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f2f2f2;
+            margin: 20px;
+        }
+        h1 {
+            color: #004080;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .error-message {
+            color: #FF0000;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #004080;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #003366;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f2f2f2;
+        }
+        footer {
+            margin-top: 40px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Interest Calculator</h1>
+    <div class="container">
+        <div>
+            <label for="principal">Principal Amount($):</label>
+            <input type="number" id="principal" step="0.01" required>
+            <div class="error-message" id="principalError"></div>
+        </div>
+        <div>
+            <label for="rate">Rate of Interest (in %):</label>
+            <input type="number" id="rate" step="0.01" required>
+            <div class="error-message" id="rateError"></div>
+        </div>
+        <div>
+            <label for="time">Time (in years):</label>
+            <input type="number" id="time" step="0.01" required>
+            <div class="error-message" id="timeError"></div>
+        </div>
+        <button onclick="calculateSimpleInterest()">Calculate</button>
+        <div id="result"></div>
+    </div>
+
+    <footer>
+        <p>Written by Sadaf Jamil</p>
+    </footer>
+
+    <script>
+        function calculateSimpleInterest() {
+            const principal = parseFloat(document.getElementById('principal').value);
+            const rate = parseFloat(document.getElementById('rate').value);
+            const time = parseFloat(document.getElementById('time').value);
+
+            const principalError = document.getElementById('principalError');
+            const rateError = document.getElementById('rateError');
+            const timeError = document.getElementById('timeError');
+
+            principalError.innerText = "";
+            rateError.innerText = "";
+            timeError.innerText = "";
+
+            if (isNaN(principal) || principal <= 0) {
+                principalError.innerText = "Please enter a valid principal amount.";
+                return;
+            }
+
+            if (isNaN(rate) || rate <= 0) {
+                rateError.innerText = "Please enter a valid rate of interest.";
+                return;
+            }
+
+            if (isNaN(time) || time <= 0) {
+                timeError.innerText = "Please enter a valid time period.";
+                return;
+            }
+
+            const simpleInterest = (principal * rate * time) / 100;
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <h2>Simple Interest Calculator Report</h2>
+                <p>Principal Amount: $${principal.toFixed(2)}</p>
+                <p>Rate of Interest: ${rate.toFixed(2)}%</p>
+                <p>Time (in years): ${time.toFixed(2)}</p>
+                <p>Simple Interest: $${simpleInterest.toFixed(2)}</p>
+                <p>Thank you for using the Simple Interest Calculator!</p>
+            `;
+        }
+    </script>
+</body>
+</html>
